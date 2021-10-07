@@ -7,6 +7,6 @@ public class Start_But : MonoBehaviour
 {
    public void onClick(string sceneName)
    {
-      SceneManager.LoadScene(Sample);
+     // SceneManager.LoadScene(S);
    }
 }
