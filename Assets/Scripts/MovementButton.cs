@@ -6,6 +6,7 @@ public class MovementButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public Transform objectForMovement;
     public bool IsDownButton { get; private set; }
     
+    
     public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.pointerId == -1)
