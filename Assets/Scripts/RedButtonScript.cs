@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class RedButtonScript : MonoBehaviour, IPointerClickHandler
 {
     public bool Podnyal { get; private set; }
+    
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -14,6 +15,7 @@ public class RedButtonScript : MonoBehaviour, IPointerClickHandler
             var delta = new Vector3(0, -0.05f, 0);
             transform.localPosition += delta;
             Podnyal = true;
+            
         }
 
         else
@@ -21,6 +23,7 @@ public class RedButtonScript : MonoBehaviour, IPointerClickHandler
             var delta = new Vector3(0, 0.05f, 0);
             transform.localPosition += delta;
             Podnyal = !Podnyal;
+            
         }
     }
 }

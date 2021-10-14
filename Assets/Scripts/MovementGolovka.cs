@@ -15,6 +15,8 @@ namespace UnityTemplateProjects
         public MovementButton downButton;
         public MovementButton rightButton;
         public MovementButton leftButton;
+        public RedButtonScript recordButton;
+        public MovementButton saveButton;
 
         [Range(0, 100)] public float speed = 50f;
         private float _calculatedSpeed;
@@ -25,12 +27,16 @@ namespace UnityTemplateProjects
 
         private Direction _currentDirection;
         private Vector3 _currentMovementObjectPosition;
+        private float length;
+        public GameObject Lazer;
+        
         // private int kolvo = 0;
 
 
         private void Update()
         {
             _calculatedSpeed = speed / 1000;
+            Lazer.gameObject.SetActive(false);
 
             if (redButtonScript.Podnyal)
             {
@@ -39,7 +45,13 @@ namespace UnityTemplateProjects
                 ExecuteRightMovement();
                 ExecuteLeftMovement();
 
-                RecordPath();
+
+                if (recordButton.Podnyal)
+                {
+                    Lazer.gameObject.SetActive(true);
+                    RecordPath();
+                }
+
             }
         }
 
@@ -52,7 +64,7 @@ namespace UnityTemplateProjects
                 return;
             
                 
-            if (_positionQueue.Count != 0)
+            if (_positionQueue.Count != 0 )
             {
                 var length = (_positionQueue.Last().position - _currentMovementObjectPosition).magnitude;
 
@@ -97,19 +109,31 @@ namespace UnityTemplateProjects
 
         private void ExecuteDownMovement()
         {
-            if (!downButton.IsDownButton)
-                return;
-
             var palka = downButton.objectForMovement;
 
-            if (palka.localPosition.x < -0.242f)
-                return;
-
-            var delta = new Vector3(-_calculatedSpeed, 0, 0);
-            palka.position += delta;
+            if (downButton.IsDownButton)
+            {
+                if (palka.localPosition.x < -0.242f)
+                    return;
+                
+                var delta = new Vector3(-_calculatedSpeed, 0, 0);
+                palka.position += delta;
             
-            _currentDirection = Direction.Down;
-            _currentMovementObjectPosition = palka.localPosition;
+                _currentDirection = Direction.Down;
+                _currentMovementObjectPosition = palka.localPosition;
+            }
+                
+
+            // var palka = downButton.objectForMovement;
+
+            // if (palka.localPosition.x < -0.242f)
+            //     return;
+
+            // var delta = new Vector3(-_calculatedSpeed, 0, 0);
+            // palka.position += delta;
+            //
+            // _currentDirection = Direction.Down;
+            // _currentMovementObjectPosition = palka.localPosition;
         }
 
         private void ExecuteRightMovement()
@@ -149,9 +173,9 @@ namespace UnityTemplateProjects
                 _currentDirection = Direction.Left;
                 _currentMovementObjectPosition = golovka.localPosition;
                 
-                // var loclPos = golovka.localPosition;
-                // loclPos.z += Length;
-                // golovka.localPosition == loclPos;
+                var loclPos = golovka.localPosition;
+                 loclPos.z += length;
+                golovka.localPosition = loclPos;
                 
                 //интерполяция а именно Vector.Lerp
                 //Time.time
@@ -163,6 +187,17 @@ namespace UnityTemplateProjects
             // {
             //     RecordPath(Direction.Left, golovka.localPosition);
             // }
+        }
+
+        private void saveRecordsButton()
+        {
+            if (saveButton.IsDownButton)
+            {
+                // if (_currentDirection = )
+                // {
+                //     MovementObject.transform.position 
+                // }
+            }
         }
     }
 }
