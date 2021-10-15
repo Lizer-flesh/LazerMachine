@@ -4,6 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.UIElements;
 
 namespace UnityTemplateProjects
@@ -16,7 +17,7 @@ namespace UnityTemplateProjects
         public MovementButton rightButton;
         public MovementButton leftButton;
         public RedButtonScript recordButton;
-        public MovementButton saveButton;
+        public RedButtonScript playButton;
 
         [Range(0, 100)] public float speed = 50f;
         private float _calculatedSpeed;
@@ -29,7 +30,13 @@ namespace UnityTemplateProjects
         private Vector3 _currentMovementObjectPosition;
         private float length;
         public GameObject Lazer;
-        
+        private float timer;
+        private Transform objectForMove;
+        private Vector3 startPosition;
+        private Vector3 newPosition;
+
+        public int count_positions;
+
         // private int kolvo = 0;
 
 
@@ -50,6 +57,14 @@ namespace UnityTemplateProjects
                 {
                     Lazer.gameObject.SetActive(true);
                     RecordPath();
+                }
+
+                if (playButton.Podnyal)
+                {
+                    if (_positionQueue.Count == 0)
+                        return;
+                    
+                    PlayRecordsButton();
                 }
 
             }
@@ -74,6 +89,7 @@ namespace UnityTemplateProjects
                 var movementPosition = new MovementPosition(_currentDirection, length, _currentMovementObjectPosition);
 
                 _positionQueue.Enqueue(movementPosition);
+                 count_positions = _positionQueue.Count;
 
                 Debug.Log($"POS {_currentMovementObjectPosition}, DIR {_currentDirection}, LEN {length}");
             }
@@ -189,15 +205,73 @@ namespace UnityTemplateProjects
             // }
         }
 
-        private void saveRecordsButton()
+        private void PlayRecordsButton()
         {
-            if (saveButton.IsDownButton)
+            
+
+            Debug.Log(timer);
+
+            
+            if (timer > 1)
             {
-                // if (_currentDirection = )
-                // {
-                //     MovementObject.transform.position 
-                // }
+                _positionQueue.Dequeue();
+                timer = 0;
             }
+            
+            if (timer == 0)
+            {
+                
+                var element = _positionQueue.Peek();
+                var lenght = element.length;
+                var direction = element.direction;
+                var delta = new Vector3(lenght, 0, 0);
+
+                Debug.Log(direction);
+
+                switch (direction)
+                {
+                    case Direction.Up:
+                        delta = new Vector3(lenght, 0, 0);
+                        objectForMove = upButton.objectForMovement;
+                        
+                        break;
+                
+                    case Direction.Down:
+                        delta = new Vector3(-lenght, 0, 0);
+                        objectForMove = downButton.objectForMovement;
+                        break;
+                
+                    case Direction.Left:
+                        delta = new Vector3(0, 0, lenght);
+                        objectForMove = leftButton.objectForMovement;
+                        break;
+                
+                    case Direction.Right:
+                        delta = new Vector3(0, 0, -lenght);
+                        objectForMove = rightButton.objectForMovement;
+                        break;
+                }
+                
+                startPosition = objectForMove.transform.localPosition;
+                newPosition = startPosition + delta;
+            }
+
+
+            timer += Time.deltaTime;
+
+            objectForMove.transform.localPosition = Vector3.Lerp(startPosition, newPosition, timer);
+
+            // var target = rightButton.objectForMovement;
+            // // var palka = down.objectForMovement;
+            //
+            // if (saveButton.IsDownButton)
+            // {
+            //            // = Vector3.Lerp(transform.position, _positionQueue.Last().position, 1 );
+            //            var next = _positionQueue.Dequeue();
+            //            Debug.Log(next.position);
+            //            target.transform.localPosition = Vector3.Lerp(transform.localPosition, next.position, 1);
+            //            // palka.transform.localPosition = Vector3.Lerp(transform.localPosition, next.position, 1);
+            // }
         }
     }
 }
