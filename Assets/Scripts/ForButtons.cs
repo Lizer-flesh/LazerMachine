@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ForButtons : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
+public class ForButtons : MonoBehaviour, IPointerDownHandler, IPointer
 {
     public bool IsRaisedButton { get; private set;}
     public float deltaY;
     public bool SelfUp;
     public Transform objectForMovement;
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerDown(PointerEventData eventData)
+    {
+            
+           if (SelfUp)
+                TwoStepButton();
+     }
+        
+    public void OnPointerUp(PointerEventData eventData)
     {
         if (SelfUp)
-        {
-            OneStepButton();
-        }
-        else
-        {
             TwoStepButton();
-        }
-       
     }
 
     public void TwoStepButton()
@@ -33,23 +33,9 @@ public class ForButtons : MonoBehaviour, IPointerClickHandler, IPointerDownHandl
 
     public void OneStepButton()
     {
-        public void OnPointerDown(PointerEventData eventData)
-        {
-           OnlyLeftButton()
-           OneStepButton();
-        }
         
-        public void OnPointerUp(PointerEventData eventData)
-        {
-            OnlyLeftButton()
-            OneStepButton();
-        }
     }
     
-    public void OnlyLeftButton()
-    {
-         if (eventData.button != PointerEventData.InputButton.Left)
-            return;
-    }
+   
         
 }
