@@ -9,19 +9,21 @@ public class MovementButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (eventData.pointerId == -1)
-        {
-            var delta = new Vector3(0, -0.05f, 0);
-            transform.position += delta;
-            IsDownButton = true;
-        }
+        if (eventData.button != PointerEventData.InputButton.Left)
+            return;
+
+        var delta = new Vector3(0, -0.05f, 0);
+        transform.position += delta;
+        IsDownButton = true;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (eventData.button != PointerEventData.InputButton.Left)
+            return;
+        
         var delta = new Vector3(0, 0.05f, 0);
         transform.position += delta;
         IsDownButton = false;
-        
     }
 }

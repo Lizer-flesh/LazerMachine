@@ -10,14 +10,14 @@ public class RedButtonScript : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (Podnyal == false)
+        if (!Podnyal)
         {
             var delta = new Vector3(0, -0.05f, 0);
             transform.localPosition += delta;
             Podnyal = true;
             
         }
-
+        
         else
         {
             var delta = new Vector3(0, 0.05f, 0);
