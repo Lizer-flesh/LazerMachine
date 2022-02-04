@@ -33,6 +33,8 @@ public class ForButtons : MonoBehaviour, IPointerClickHandler, IPointerDownHandl
 
     public void OneStepButton()
     {
-        public 
-    }
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            
+        }
 }
