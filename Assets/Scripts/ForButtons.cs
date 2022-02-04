@@ -35,6 +35,21 @@ public class ForButtons : MonoBehaviour, IPointerClickHandler, IPointerDownHandl
     {
         public void OnPointerDown(PointerEventData eventData)
         {
-            
+           OnlyLeftButton()
+           OneStepButton();
         }
+        
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            OnlyLeftButton()
+            OneStepButton();
+        }
+    }
+    
+    public void OnlyLeftButton()
+    {
+         if (eventData.button != PointerEventData.InputButton.Left)
+            return;
+    }
+        
 }
