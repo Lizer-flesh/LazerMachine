@@ -233,7 +233,6 @@ namespace UnityTemplateProjects
                     case Direction.Up:
                         delta = new Vector3(lenght, 0, 0);
                         objectForMove = upButton.objectForMovement;
-                        
                         break;
                 
                     case Direction.Down:

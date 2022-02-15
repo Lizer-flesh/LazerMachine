@@ -26,4 +26,6 @@ public class MovementButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         transform.position += delta;
         IsDownButton = false;
     }
+    
+    
 }
