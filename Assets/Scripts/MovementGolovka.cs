@@ -112,7 +112,7 @@ namespace UnityTemplateProjects
             {
                 var palka = upButton.objectForMovement;
 
-                if (palka.localPosition.x > 0.35f)
+                if (palka.localPosition.x > 0.364f)
                     return;
 
                 var delta = new Vector3(_calculatedSpeed, 0, 0);
