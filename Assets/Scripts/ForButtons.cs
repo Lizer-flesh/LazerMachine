@@ -8,14 +8,13 @@ public class ForButtons : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public float deltaY;
     public bool SelfUp;
     public Transform objectForMovement;
-    public event Action<bool> OnClick;
+    //public event Action<bool> OnClick;
 
     public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.button != PointerEventData.InputButton.Left)
             return;
-
-
+        
         TwoStepButton();
     }
 
@@ -32,7 +31,7 @@ public class ForButtons : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void TwoStepButton()
     {
-        OnClick?.Invoke(!IsRaisedButton);
+        //OnClick?.Invoke(!IsRaisedButton);
         var delta = new Vector3(0, deltaY, 0);
         delta = IsRaisedButton ? delta : -delta;
         transform.position += delta;
