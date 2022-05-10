@@ -17,7 +17,7 @@ public class trainig : MonoBehaviour
     public GameObject _ramka2;
     public GameObject _nextButton;
 
-    public void SetUp()
+     void Start()
     {
         var _backButton = GameObject.Find("BackButton");
         var _exitButton = GameObject.Find("ExitButton");
@@ -31,12 +31,13 @@ public class trainig : MonoBehaviour
         var  _ramka = GameObject.Find("Ramka");
         var _ramka2 = GameObject.Find("Ramka2");
         var _nextButton = GameObject.Find("NextButton");
+
+        // _nextButton.onClick.AddListener(NextButtonOnClick());
     }
 
-    public void NextButton()
-    {
-        
-    }
+    // void NextButtonOnClick()
+    // {
+    // }
    
     
 }
